@@ -150,7 +150,7 @@ async def restart(client, message):
     await sleep(5)
     await k.edit("🔄 **Successfully Updated!**")
     await sleep(2)
-    await k.edit("🔄 **Now Restarting ...\n\nJoin @AsmSafone For Updates!**")
+    await k.edit("🔄 **Now Restarting ...\n\nJoin [TGxBOTz](t.me/tgxbotz_update) For Updates!**")
     try:
         await message.delete()
     except:

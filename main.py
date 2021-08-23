@@ -20,6 +20,7 @@ import os
 import sys
 import asyncio
 import subprocess
+from time import sleep
 from threading import Thread
 from signal import SIGINT
 from pyrogram import Client, filters, idle
@@ -46,7 +47,8 @@ async def main():
 
 def stop_and_restart():
     bot.stop()
-    os.system("git pull")
+    os.system("git pull && pip3 install -U pytgcalls[pyrogram]")
+    sleep(10)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 
@@ -143,11 +145,11 @@ bot.send(
 @bot.on_message(filters.command(["restart", f"restart@{USERNAME}"]) & filters.user(ADMINS) & (filters.chat(CHAT) | filters.private | filters.chat(LOG_GROUP)))
 async def restart(client, message):
     k=await message.reply_text("🔄 **Checking Updates ...**")
-    await asyncio.sleep(3)
+    await sleep(3)
     await k.edit("🔄 **Updating, Please Wait...**")
-    await asyncio.sleep(5)
+    await sleep(5)
     await k.edit("🔄 **Successfully Updated!**")
-    await asyncio.sleep(2)
+    await sleep(2)
     await k.edit("🔄 **Now Restarting ...\n\nJoin @AsmSafone For Updates!**")
     try:
         await message.delete()
@@ -165,7 +167,11 @@ async def restart(client, message):
         FFMPEG_PROCESSES[CHAT] = ""
     Thread(
         target=stop_and_restart
-        ).start()    
+        ).start()
+    try:
+        await k.delete()
+    except:
+        pass
 
 idle()
 bot.stop()

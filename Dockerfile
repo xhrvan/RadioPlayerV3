@@ -9,9 +9,6 @@ RUN apt install git curl python3-pip ffmpeg -y
 #Updating Pip
 RUN pip3 install -U pip
 
-#ytdl error
-sudo pip install -U youtube-dl
-
 #Copying Requirements
 COPY requirements.txt /requirements.txt
 RUN cd /
